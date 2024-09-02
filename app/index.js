@@ -8,7 +8,6 @@ const processBody = (body, link, resource = 'Court House News') => {
   let formattedBody = '';
 
   if (body) {
-    // Remove the specific text from the body
     body = body.replace(/^MEXICO CITY \(CN\) —\s*/, '');
     formattedBody += `<p>${body}</p><br><br><ul><li><a href='${link}'>Visit ${resource}</a></li></ul>`;
   } else if (link) {
@@ -43,7 +42,7 @@ const insertArticleIntoDatabase = async (client, article) => {
   });
 
   let browser;
-  let slugCounter = 0; // Initialize slug counter
+  let slugCounter = 0; 
   
   console.log('Connecting to the database...');
   try {
@@ -146,10 +145,8 @@ const insertArticleIntoDatabase = async (client, article) => {
               paragraphs.map(p => p.innerText.trim()).join('\n\n')
             );
 
-            // Remove the specific text from the body
             bodyContent = bodyContent.replace(/^MEXICO CITY \(CN\) —\s*/, '');
 
-            // If no summary on the main page, extract it from the body content
             if (!article.summary) {
               article.summary = bodyContent.split(' ').slice(0, 20).join(' ') + '...';
             }
